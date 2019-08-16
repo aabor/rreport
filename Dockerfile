@@ -1,6 +1,6 @@
-# aabor/rstudio
+# aabor/rreports
 # configured for automatic build
-FROM rocker/tidyverse:3.5.3
+FROM rocker/verse:3.6.1 
 
 LABEL maintainer="A. Borochkin"
 
@@ -8,24 +8,10 @@ LABEL maintainer="A. Borochkin"
 RUN install2.r --error \
   doParallel \
   jsonlite \
+  # Pure R implementation of the ubiquitous log4j package. It offers hierarchic loggers, multiple handlers per logger,
+  # level based filtering, space handling in messages and custom formatting.
+  logging \
   && rm -rf /tmp/downloaded_packages/
-
-# Java 8
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    ## for rJava
-    default-jdk \
-    ## used to build rJava and other packages
-    libbz2-dev \
-    libicu-dev \
-    liblzma-dev \
-    && apt-get clean
-RUN install2.r --error \ 
-    # Low-level interface to Java VM
-    rJava \
-    # conversion to and from data in Javascript object notation (JSON) format
-    RJSONIO \
-    && rm -rf /tmp/downloaded_packages/
 
 #Additional ggplot packages
 RUN install2.r --error \
@@ -37,19 +23,6 @@ RUN install2.r --error \
     RColorBrewer \
     # wesanderson color palette for R
     wesanderson \
-    # Convert Plot to 'grob' or 'ggplot' Object.
-    ggplotify \
-    # makes it easy to combine multiple 'ggplot2' plots into one and label them with letters, provides a streamlined and clean theme that is used in the Wilke lab
-    cowplot \
-    # Visualization techniques, data sets, summary and inference procedures aimed particularly at categorical data. Special emphasis is given to highly extensible grid graphics.
-    vcd \
-    && rm -rf /tmp/downloaded_packages/
-
-# RESTful API
-RUN install2.r --error \ 
-    # Pure R implementation of the ubiquitous log4j package. It offers hierarchic loggers, multiple handlers per logger,
-    # level based filtering, space handling in messages and custom formatting.
-    logging \
     && rm -rf /tmp/downloaded_packages/
 
 # connection to Excel
@@ -92,32 +65,19 @@ RUN install2.r --error \
     # helps split text into tokens, supporting shingled n-grams, skip n-grams, words, word stems, sentences, paragraphs,
     # characters, lines, and regular expressions. 
     tokenizers \
-        # transcript analysis, Text Mining/ Natural Language Processing: frequency counts of sentence types, words,
+    # transcript analysis, Text Mining/ Natural Language Processing: frequency counts of sentence types, words,
     # sentences, turns of talk, syllables and other assorted analysis tasks
     qdap \
     #approximate string matching version of R's native 'match' function
     stringdist \
     && rm -rf /tmp/downloaded_packages/
 
-
-# Latex support
-RUN apt-get install -y xzdec \
-  texlive-base \
-  && apt-get clean
-
-USER root
-
-RUN cd && mkdir texmf \
-  && tlmgr init-usertree \ 
-  && tlmgr option repository http://mirrors.rit.edu/CTAN/systems/texlive/tlnet \
-  && tlmgr update --self \
-  && apt-get clean
-
 RUN tlmgr install \
+    colortbl \
+    translator \
+    varwidth \
     # most of the functionality of table packages
     tabu \
-    # professional-looking layout
-    booktabs \
     # typesets tables with captions and notes matching width
     threeparttable \
     # provides the functionality of threeparttable to tables created using longtable
@@ -125,8 +85,15 @@ RUN tlmgr install \
     # lets tabular material span multiple rows
     multirow \
     floatrow \
-    ctable 
+    ctable \
+    ulem \
+    subfig  \
+    beamer \
+    environ \
+    trimspaces \
+    pbox \
+    amsfonts 
 
-USER rstudio
+
 
 
