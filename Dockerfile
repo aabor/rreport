@@ -94,6 +94,11 @@ RUN tlmgr install \
     pbox \
     amsfonts 
 
+# A Utility to Send Emails from R
+# https://medium.com/@randerson112358/send-email-using-r-program-1b094208cf2f
+# to fix error Sending the email to the following server failed : smtp.gmail.com:465
+# accounts with 2-Step Verification enabled. Such accounts require an application-specific password for less secure apps acces
+RUN R -e "devtools::install_github('rpremraj/mailR')"
 
 
 
