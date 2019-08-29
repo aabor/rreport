@@ -23,6 +23,8 @@ RUN install2.r --error \
     RColorBrewer \
     # wesanderson color palette for R
     wesanderson \
+    # easy-to-use functions for creating and customizing 'ggplot2'- based publication ready plots
+    ggpubr \
     && rm -rf /tmp/downloaded_packages/
 
 # connection to Excel
@@ -52,6 +54,8 @@ RUN install2.r --error \
     RMySQL \
     # provide a common API for access to SQL 1 -based database management systems (DBMSs) such as MySQL 2 , PostgreSQL, Microsoft Access and SQL Server, DB2, Oracle and SQLite
     RODBC \
+    # Implements a 'DBI'-compliant interface to 'MariaDB' (<https://mariadb.org/>) and 'MySQL' (<https://www.mysql.com/>) databases. 
+    MariaDB \
     && rm -rf /tmp/downloaded_packages/
 
 
