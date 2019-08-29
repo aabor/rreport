@@ -55,7 +55,7 @@ RUN install2.r --error \
     # provide a common API for access to SQL 1 -based database management systems (DBMSs) such as MySQL 2 , PostgreSQL, Microsoft Access and SQL Server, DB2, Oracle and SQLite
     RODBC \
     # Implements a 'DBI'-compliant interface to 'MariaDB' (<https://mariadb.org/>) and 'MySQL' (<https://www.mysql.com/>) databases. 
-    MariaDB \
+    RMariaDB \
     && rm -rf /tmp/downloaded_packages/
 
 
