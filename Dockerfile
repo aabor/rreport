@@ -25,6 +25,8 @@ RUN install2.r --error \
     wesanderson \
     # easy-to-use functions for creating and customizing 'ggplot2'- based publication ready plots
     ggpubr \
+    # tabulate-and-report functions that approximate popular features of SPSS and Microsoft Excel
+    janitor \
     && rm -rf /tmp/downloaded_packages/
 
 # connection to Excel
