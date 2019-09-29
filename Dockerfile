@@ -77,6 +77,11 @@ RUN install2.r --error \
     #approximate string matching version of R's native 'match' function
     stringdist \
     && rm -rf /tmp/downloaded_packages/
+# Time series
+RUN install2.r --error \ 
+    # methods for totally ordered indexed observations
+    zoo \
+    && rm -rf /tmp/downloaded_packages/
 
 RUN tlmgr install \
     colortbl \
