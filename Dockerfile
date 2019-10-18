@@ -2,7 +2,7 @@
 # configured for automatic build
 FROM rocker/verse:3.6.1 
 
-LABEL maintainer="A. Borochkin"
+LABEL maintainer="A. A. Borochkin"
 
 # System utilities
 RUN install2.r --error \
