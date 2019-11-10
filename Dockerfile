@@ -4,6 +4,9 @@ FROM rocker/verse:3.6.1
 
 LABEL maintainer="A. A. Borochkin"
 
+RUN apt-get update && apt-get install -y\
+  vim \
+  && apt-get clean    
 # System utilities
 RUN install2.r --error \
   doParallel \
@@ -83,6 +86,8 @@ RUN install2.r --error \
     zoo \
     && rm -rf /tmp/downloaded_packages/
 
+RUN tlmgr update --self
+
 RUN tlmgr install \
     colortbl \
     translator \
@@ -102,8 +107,7 @@ RUN tlmgr install \
     beamer \
     environ \
     trimspaces \
-    pbox \
-    amsfonts 
+    pbox
 
 # A Utility to Send Emails from R
 # https://medium.com/@randerson112358/send-email-using-r-program-1b094208cf2f
