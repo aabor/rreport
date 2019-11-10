@@ -1,12 +1,13 @@
 # aabor/rreports
 # configured for automatic build
-FROM rocker/verse:3.6.1 
+FROM rocker/verse:3.6
 
 LABEL maintainer="A. A. Borochkin"
 
 RUN apt-get update && apt-get install -y\
   vim \
   && apt-get clean    
+
 # System utilities
 RUN install2.r --error \
   doParallel \
