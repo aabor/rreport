@@ -87,8 +87,6 @@ RUN install2.r --error \
     zoo \
     && rm -rf /tmp/downloaded_packages/
 
-RUN tlmgr update --self
-
 RUN tlmgr install \
     xcolor \
     colortbl \
