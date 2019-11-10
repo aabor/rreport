@@ -63,7 +63,6 @@ RUN install2.r --error \
     RMariaDB \
     && rm -rf /tmp/downloaded_packages/
 
-
 # NLP
 RUN install2.r --error \ 
     # Text Mining
@@ -80,6 +79,7 @@ RUN install2.r --error \
     #approximate string matching version of R's native 'match' function
     stringdist \
     && rm -rf /tmp/downloaded_packages/
+
 # Time series
 RUN install2.r --error \ 
     # methods for totally ordered indexed observations
@@ -89,6 +89,7 @@ RUN install2.r --error \
 RUN tlmgr update --self
 
 RUN tlmgr install \
+    xcolor \
     colortbl \
     translator \
     varwidth \
