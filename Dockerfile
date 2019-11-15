@@ -90,7 +90,6 @@ RUN install2.r --error \
 RUN tlmgr install \
     xcolor \
     colortbl \
-    translator \
     varwidth \
     # most of the functionality of table packages
     tabu \
