@@ -45,7 +45,7 @@ RUN install2.r --error \
     vcd \
     && rm -rf /tmp/downloaded_packages/
 
-# RESTful API
+# Logging
 RUN install2.r --error \ 
     # Pure R implementation of the ubiquitous log4j package. It offers hierarchic loggers, multiple handlers per logger,
     # level based filtering, space handling in messages and custom formatting.

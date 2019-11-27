@@ -1,18 +1,17 @@
 version: '3.5'
 services:
-  rstudio: 
+  rreport: 
     image: aabor/rreport
     build: .
     volumes:
       - /home/$USER/R:/home/rstudio/R
-      - /home/$USER/R/srv:/srv/shiny-server 
-      - /home/$USER/R/srv/.log:/var/log/shiny-server
+      - /home/$USER/rstudio/rreports:/home/rstudio  
       - /home/$USER/.Renviron:/home/rstudio/.Renviron
     ports:
       - "8787:8787"
       - "3838:3838"
     environment:
-      - TZ="GMT"
+      - TZ="Etc/GMT"
       - USER=rstudio
       - PASSWORD=123
     restart: "on-failure:30"
