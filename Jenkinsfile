@@ -11,14 +11,17 @@ pipeline {
                 labelledShell label: 'Building and tagging docker images...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
                     docker-compose build
-                    docker tag $USER/rreport:latest $USER/rreport:$GIT_VERSION
-                    docker system prune -f # remove orphan containers, volumes, networks and images
+                '''
+                labelledShell label: 'Unit tests...', script: '''
+                    docker-compose -f docker-compose.test.yml up rreport-test
                 '''
                 labelledShell label: 'Pushing images to docker registry...', script: '''
-                    echo 'login to docker'
-                    docker login -u $DOCKER_CREDS_USR  -p $DOCKER_CREDS_PSW
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
                     echo $GIT_VERSION
+                    docker tag $USER/rreport:latest $USER/rreport:$GIT_VERSION
+                    docker system prune -f # remove orphan containers, volumes, networks and images
+                    echo 'login to docker'
+                    docker login -u $DOCKER_CREDS_USR  -p $DOCKER_CREDS_PSW
                     echo "Pushing rreport:$GIT_VERSION to docker hub"
                     docker push aabor/rreport:$GIT_VERSION
                     docker push aabor/rreport:latest
@@ -26,6 +29,7 @@ pipeline {
             }
             post {
                 always{
+                    junit '**/test-reports/*.xml'
                     cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
