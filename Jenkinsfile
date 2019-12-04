@@ -36,7 +36,7 @@ pipeline {
                     sh '''
                         ls tests/testthat/test-reports
                     '''
-                    junit '**/test-reports/*.xml'
+                    junit 'tests/testthat/test-reports/*.xml'
                     //cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
