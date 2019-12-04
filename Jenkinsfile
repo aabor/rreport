@@ -17,7 +17,6 @@ pipeline {
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     docker-compose -f docker-compose.test.yml up rreport-test
-                    ls tests/testthat/test-reports
                 '''
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
@@ -33,11 +32,8 @@ pipeline {
             }
             post {
                 always{
-                    sh '''
-                        ls tests/testthat/test-reports
-                    '''
-                    junit 'tests/testthat/test-reports/*.xml'
-                    //cleanWs()
+                    junit '**/test-reports/*.xml'
+                    cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
                         [$class: 'RequesterRecipientProvider']],

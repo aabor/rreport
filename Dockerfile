@@ -116,6 +116,10 @@ RUN install2.r --error \
     zoo \
     && rm -rf /tmp/downloaded_packages/
 
-
+RUN mkdir /home/rstudio/rreports
+    
+USER rstudio
+WORKDIR /home/rstudio/rreports
+COPY . .
 
 
