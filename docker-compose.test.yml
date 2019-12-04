@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+    rreport-test:
+      image: aabor/rreport
+      volumes:
+        - /home/$USER/R:/home/rstudio/R
+        - /home/$USER/rstudio/rreports:/home/rstudio  
+        - /home/$USER/.Renviron:/home/rstudio/.Renviron
+      ports:
+        - "8787:8787"
+      environment:
+        - TZ="UTC"
+        - USER=rstudio
+        - PASSWORD=123
+        command: bash -c "pwd && Rscript --verbose tests/run-tests.R"

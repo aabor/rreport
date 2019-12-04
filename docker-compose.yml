@@ -9,7 +9,6 @@ services:
       - /home/$USER/.Renviron:/home/rstudio/.Renviron
     ports:
       - "8787:8787"
-      - "3838:3838"
     environment:
       - TZ="Etc/GMT"
       - USER=rstudio
