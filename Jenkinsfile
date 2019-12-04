@@ -13,7 +13,7 @@ pipeline {
                     docker-compose build
                 '''
                 labelledShell label: 'Changing permissions for test reports', script: '''
-                    chmod 777 rnews/tests/testthat/test-reports                
+                    chmod 777 tests/testthat/test-reports                
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     docker-compose -f docker-compose.test.yml up rreport-test
