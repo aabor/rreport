@@ -5,9 +5,7 @@ services:
     volumes:
       - $PWD:/home/rstudio/rreports      
     working_dir: /home/rstudio/rreports
-    ports:
-      - "8787:8787"
     environment:
-      - USER=rstudio
-      - PASSWORD=123
+      - TZ="Europe/Kiev"
+      - WERKZEUG_DEBUG_PIN=off
     command: bash -c "pwd && Rscript --verbose tests/run-tests.R"
