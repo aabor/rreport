@@ -12,6 +12,9 @@ pipeline {
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
                     docker-compose build
                 '''
+                labelledShell label: 'Changing permissions for test reports', script: '''
+                    chmod 777 rnews/tests/testthat/test-reports                
+                '''
                 labelledShell label: 'Unit tests...', script: '''
                     docker-compose -f docker-compose.test.yml up rreport-test
                 '''
@@ -29,6 +32,7 @@ pipeline {
             }
             post {
                 always{
+                    ls tests/
                     junit '**/test-reports/*.xml'
                     cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
