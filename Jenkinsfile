@@ -8,6 +8,7 @@ pipeline {
                 RSTUDIO_COMMON_CREDS = credentials('jenkins-rstudio-common-creds')
             }            
             steps {
+                cleanWs()
                 labelledShell label: 'Building and tagging docker images...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
                     docker-compose build
@@ -19,7 +20,7 @@ pipeline {
                     docker-compose -f docker-compose.test.yml up rreport-test
                     mkdir -p $WORKSPACE/test-reports
                     chmod 777 $WORKSPACE/test-reports
-                    cp -r tests/testthat/test-reports/rreport.xml $WORKSPACE/test-reports/
+                    cp -r tests/testthat/test-reports $WORKSPACE/
                 '''
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
