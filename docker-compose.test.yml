@@ -3,9 +3,8 @@ services:
   rreport-test:
     image: aabor/rreport
     volumes:
-      - /home/$USER/R:/home/rstudio/R
-      - /home/$USER/projects/rreport:/home/rstudio/rreport
-      - /home/$USER/.Renviron:/home/rstudio/.Renviron
+      - $PWD:/home/rstudio/rreports      
+    working_dir: /home/rstudio/rreports
     ports:
       - "8787:8787"
     environment:
