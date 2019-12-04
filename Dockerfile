@@ -4,18 +4,59 @@ FROM rocker/tidyverse:3.6.1
 
 LABEL maintainer="A. A. Borochkin"
 
-RUN apt-get update && apt-get install -y\
-  vim \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ## for some package installs
+    cmake \
+    ## for rJava
+    default-jdk \
+    ## Nice Google fonts
+    fonts-roboto \
+    ## used by some base R plots
+    ghostscript \
+    ## used to build rJava and other packages
+    libbz2-dev \
+    libicu-dev \
+    liblzma-dev \
+    ## system dependency of hunspell (devtools)
+    libhunspell-dev \
+    ## system dependency of hadley/pkgdown
+    libmagick++-dev \
+    vim \
   && apt-get clean    
 
 # System utilities
 RUN install2.r --error \
   doParallel \
-  jsonlite \
   # Pure R implementation of the ubiquitous log4j package. It offers hierarchic loggers, multiple handlers per logger,
   # level based filtering, space handling in messages and custom formatting.
   logging \
+  # JUnit tests
+  testthat \
+  # R functions implementing a standard Unit Testing framework, with additional code inspection and report generation tools
+  RUnit \   
+  # Low-Level R to Java Interface
+  rJava \  
   && rm -rf /tmp/downloaded_packages/
+
+# A Utility to Send Emails from R, Java dependent
+# https://medium.com/@randerson112358/send-email-using-r-program-1b094208cf2f
+# to fix error Sending the email to the following server failed : smtp.gmail.com:465
+# accounts with 2-Step Verification enabled. Such accounts require an application-specific password for less secure apps acces
+RUN R -e "devtools::install_github('rpremraj/mailR')"
+
+# Different file formats support
+RUN install2.r --error \ 
+    # functions to stream, validate, and prettify JSON data
+    jsonlite \
+    # archivator
+    zip \
+    # easy and simple way to read, write and display bitmap images stored in the JPEG format
+    png \
+    # easy and simple way to read, write and display bitmap images stored in the PNG format
+    jpeg \
+    # Methods to Convert R Data to YAML and Back
+    yaml \
+    && rm -rf /tmp/downloaded_packages/
 
 #Additional ggplot packages
 RUN install2.r --error \
@@ -55,11 +96,14 @@ RUN install2.r --error \
     tm \
     # stopword lists
     stopwords \
+    # Word Clouds. Functionality to create pretty word clouds, visualize differences and similarity between documents
     wordcloud \
+    # A Word Cloud Geom for 'ggplot2'
+    ggwordcloud \
     # helps split text into tokens, supporting shingled n-grams, skip n-grams, words, word stems, sentences, paragraphs,
     # characters, lines, and regular expressions. 
     tokenizers \
-    # transcript analysis, Text Mining/ Natural Language Processing: frequency counts of sentence types, words,
+    # transcript analysis, Text Mining / Natural Language Processing: frequency counts of sentence types, words,
     # sentences, turns of talk, syllables and other assorted analysis tasks
     qdap \
     #approximate string matching version of R's native 'match' function
@@ -72,16 +116,6 @@ RUN install2.r --error \
     zoo \
     && rm -rf /tmp/downloaded_packages/
 
-# A Utility to Send Emails from R
-# https://medium.com/@randerson112358/send-email-using-r-program-1b094208cf2f
-# to fix error Sending the email to the following server failed : smtp.gmail.com:465
-# accounts with 2-Step Verification enabled. Such accounts require an application-specific password for less secure apps acces
-RUN R -e "devtools::install_github('rpremraj/mailR')"
-
-RUN install2.r --error \ 
-    # JUnit tests
-    testthat \
-    && rm -rf /tmp/downloaded_packages/
 
 
 
