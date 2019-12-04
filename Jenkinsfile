@@ -36,7 +36,7 @@ pipeline {
             }
             post {
                 always{
-                    junit 'test-reports/*.xml'
+                    junit '$WORKSPACE/test-reports/*.xml'
                     //cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
