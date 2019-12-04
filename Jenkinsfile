@@ -17,7 +17,7 @@ pipeline {
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     docker-compose -f docker-compose.test.yml up rreport-test
-                    mkdir $WORKSPACE/test-reports
+                    mkdir -p $WORKSPACE/test-reports
                     chmod 777 $WORKSPACE/test-reports
                     cp -r tests/testthat/test-reports/rreport.xml $WORKSPACE/test-reports/
                 '''
