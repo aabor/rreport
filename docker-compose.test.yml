@@ -4,7 +4,7 @@ services:
     image: aabor/rreport
     volumes:
       - $PWD:/home/rstudio/rreport
-      #- /home/projects/rreport/tests/testthat/test-reports:/home/rstudio/rreport/tests/testthat/test-reports
+      - /home/projects/rreport/tests/testthat/test-reports:/home/rstudio/rreport/tests/testthat/test-reports
     working_dir: /home/rstudio/rreport
     environment:
       - TZ="Europe/Kiev"
