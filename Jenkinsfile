@@ -20,6 +20,7 @@ pipeline {
                     docker-compose -f docker-compose.test.yml up rreport-test
                     ls tests/testthat/test-reports
                     ls $WORKSPACE
+                    chown aabor:jenkins -R tests
                     chmod -R 777 tests                
                 '''                
                 labelledShell label: 'Pushing images to docker registry...', script: '''
