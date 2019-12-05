@@ -19,11 +19,7 @@ pipeline {
                     ls tests/testthat/test-reports
                     docker-compose -f docker-compose.test.yml up rreport-test
                     ls tests/testthat/test-reports
-
-                    // mkdir -p $WORKSPACE/test-reports
-                    // chmod 777 $WORKSPACE/test-reports
-                    // cp -r tests/testthat/test-reports/*.xml $WORKSPACE/test-reports
-                    // chmod 777 -R $WORKSPACE/test-reports
+                    ls $WORKSPACE
                 '''                
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
@@ -39,7 +35,8 @@ pipeline {
             }
             post {
                 always{
-                    cleanWs()
+                    junit '**/test-reports/*.xml'
+                    //cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
                         [$class: 'RequesterRecipientProvider']],
