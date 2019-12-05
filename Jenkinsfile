@@ -13,8 +13,10 @@ pipeline {
                     docker-compose build
                 '''
                 labelledShell label: 'Unit tests...', script: '''
+                    chmod -R 777 tests
                     ls tests/testthat/test-reports
                     docker-compose -f docker-compose.test.yml up rreport-test
+                    chmod -R 777 tests
                     ls tests/testthat/test-reports
                     ls $WORKSPACE
                 '''                
