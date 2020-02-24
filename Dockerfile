@@ -119,6 +119,7 @@ RUN install2.r --error \
 RUN mkdir /home/rstudio/rreports
     
 USER rstudio
+
 WORKDIR /home/rstudio/rreports
 COPY . .
 
