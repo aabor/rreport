@@ -5,3 +5,4 @@ file.exists(output_file) # TRUE
 options(testthat.output_file = output_file)
 dir.exists("tests/testthat") #TRUE
 testthat::test_dir('tests/testthat', reporter = "junit")
+system("chmod -R 666 tests/testthat/*")
