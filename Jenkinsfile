@@ -16,6 +16,7 @@ pipeline {
                     ls tests/testthat/test-reports
                     docker-compose -f docker-compose.test.yml up rreport-test
                     ls tests/testthat/test-reports
+                    chown jenkins:jenkins tests/testthat/test-reports
                     ls $WORKSPACE
                 '''                
                 labelledShell label: 'Pushing images to docker registry...', script: '''

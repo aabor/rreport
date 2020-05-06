@@ -6,4 +6,4 @@ services:
       - "${PWD}:/home/rstudio/rreport/"
     working_dir: /home/rstudio/rreport
     command: bash -c "pwd && Rscript --verbose tests/run-tests.R"
-    user: jenkins    
+    user: root    
