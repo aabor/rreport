@@ -13,7 +13,7 @@ pipeline {
                     docker-compose build
                 '''
                 labelledShell label: 'Unit tests...', script: '''
-                    docker-compose -f docker-compose.test.yml up rreport-test
+                    docker-compose -f -u jenkins docker-compose.test.yml up rreport-test
                     ls tests/testthat/test-reports
                     ls $WORKSPACE
                 '''                
