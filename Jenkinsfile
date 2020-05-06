@@ -13,7 +13,6 @@ pipeline {
                     docker-compose build
                 '''
                 labelledShell label: 'Unit tests...', script: '''
-                    mkdir -p tests/testthat/test-reports
                     ls tests/testthat/test-reports
                     docker-compose -f docker-compose.test.yml up rreport-test
                     ls tests/testthat/test-reports
