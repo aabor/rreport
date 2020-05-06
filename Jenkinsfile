@@ -15,7 +15,7 @@ pipeline {
                 labelledShell label: 'Unit tests...', script: '''
                     docker-compose -f docker-compose.test.yml up rreport-test
                     ls tests/testthat/test-reports
-                    ls $WORKSPACE
+                    cat tests/testthat/test-reports/rreport.xml 
                 '''                
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
