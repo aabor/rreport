@@ -3,7 +3,6 @@ services:
   rreport-test:
     image: aabor/rreport
     volumes:
-      - $PWD/tests/testthat/test-reports:/home/rstudio/rreport/tests/testthat/test-reports
+      - "${PWD}:/home/rstudio/rreport/"
     working_dir: /home/rstudio/rreport
-    environment:
-    command: bash -c "pwd && Rscript --verbose tests/run-tests.R"
+    command: bash -c "pwd && Rscript --verbose tests/run-tests.R"    
