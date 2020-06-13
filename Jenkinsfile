@@ -14,6 +14,7 @@ pipeline {
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     docker-compose -f docker-compose.test.yml up rreport-test
+                    ls
                     ls tests/testthat/test-reports
                     cat tests/testthat/test-reports/rreport.xml 
                 '''                
@@ -27,6 +28,7 @@ pipeline {
                     echo "Pushing rreport:$GIT_VERSION to docker hub"
                     docker push aabor/rreport:$GIT_VERSION
                     docker push aabor/rreport:latest
+                    ls
                 '''
             }
             post {
