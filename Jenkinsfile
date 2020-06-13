@@ -13,7 +13,8 @@ pipeline {
                     docker-compose build
                 '''
                 labelledShell label: 'Unit tests...', script: '''
-                    docker-compose -f docker-compose.test.yml up rreport-test
+                    docker-compose -f docker-compose.test.yml up
+                    docker cp rreport-test:tests/testthat/test-reports tests/testthat/
                     ls tests/testthat/test-reports
                     cat tests/testthat/test-reports/rreport.xml 
                 '''                
