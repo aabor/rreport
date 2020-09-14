@@ -2,10 +2,9 @@ version: '3.5'
 services:
   rreport-test:
     image: aabor/rreport
+    container_name: rreport-test
     volumes:
-      - $PWD:/home/rstudio/rreport
-    working_dir: /home/rstudio/rreport
-    environment:
-      - TZ="Europe/Kiev"
-      - WERKZEUG_DEBUG_PIN=off
+      - "${PWD}/tests/testthat/test-reports:/home/rstudio/rreport/tests/testthat/test-reports"
+#    working_dir: /home/rstudio/rreport/
     command: bash -c "pwd && Rscript --verbose tests/run-tests.R"
+    user: root    
