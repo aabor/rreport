@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ## system dependency of hadley/pkgdown
     libmagick++-dev \
     vim \
+    tree \
   && apt-get clean    
 
 # System utilities
