@@ -39,6 +39,8 @@ RUN install2.r --error \
   logging \
   # JUnit tests
   testthat \
+  # Provides two convenience functions assert() and test_pkg() to facilitate testing R packages
+  testit \
   # R functions implementing a standard Unit Testing framework, with additional code inspection and report generation tools
   RUnit \   
   # Low-Level R to Java Interface
