@@ -10,7 +10,7 @@ pipeline {
             steps {
                 labelledShell label: 'Building and tagging docker images...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
-                    docker-compose build
+                    docker build -t $USER/rreport .
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     echo 'skiping tests'
