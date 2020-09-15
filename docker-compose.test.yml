@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   rreport-test:
-    image: aabor/rreport
+    image: aabor/rreport:3.0-80-g7fa7cd7
     container_name: rreport-test
     volumes:
       - "${PWD}/tests/testthat/test-reports:/home/rstudio/rreport/tests/testthat/test-reports"

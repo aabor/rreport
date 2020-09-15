@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     tzdata \
     vim \
+    tree \
   && apt-get clean    
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
