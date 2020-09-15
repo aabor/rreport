@@ -1,6 +1,6 @@
 # aabor/rreports
 # configured for automatic build
-FROM rocker/tidyverse:4.0.0-ubuntu18.04
+FROM rocker/tidyverse:4.0.0
 
 LABEL maintainer="A. A. Borochkin"
 
@@ -24,7 +24,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ## system dependency for igraph
     glpk-utils \
     curl \
-    tzdata \
     vim \
     tree \
   && apt-get clean    
