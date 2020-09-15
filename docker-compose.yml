@@ -1,11 +1,7 @@
 version: '3.5'
 services:
   rreport: 
-<<<<<<< Updated upstream
-    image: aabor/rreport:3.0-80-g7fa7cd7
-=======
     image: aabor/rstudio-text:1.3-181-gf549773
->>>>>>> Stashed changes
     build: .
     volumes:
       - /home/$USER/Documents:/home/rstudio/Documents
