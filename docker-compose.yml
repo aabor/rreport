@@ -1,12 +1,21 @@
 version: '3.5'
 services:
   rreport: 
+<<<<<<< Updated upstream
     image: aabor/rreport:3.0-80-g7fa7cd7
+=======
+    image: aabor/rstudio-text:1.3-181-gf549773
+>>>>>>> Stashed changes
     build: .
     volumes:
-      - /home/$USER/R:/home/rstudio/R
-      - /home/$USER/rstudio/rreports:/home/rstudio  
+      - /home/$USER/Documents:/home/rstudio/Documents
+      - /home/$USER/projects:/home/rstudio/R
+      - /home/$USER/.ssh:/home/rstudio/.ssh/  
       - /home/$USER/.Renviron:/home/rstudio/.Renviron
+      - /home/$USER/.gitconfig:/home/rstudio/.gitconfig
+      - /home/$USER/.rstudio/rstudio-text:/home/rstudio  
+      - /home/$USER/.rstudio/rstudio-text:/srv/shiny-server 
+      - /home/$USER/.rstudio/rstudio-text/.log:/var/log/shiny-server      
     ports:
       - "8787:8787"
     environment:
