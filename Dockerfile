@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ## system dependency for igraph
     glpk-utils \
     curl \
+    tzdata \
     vim \
   && apt-get clean    
 
