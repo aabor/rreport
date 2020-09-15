@@ -1,6 +1,6 @@
 # aabor/rreports
 # configured for automatic build
-FROM rocker/tidyverse:3.6.1
+FROM rocker/tidyverse:4.0.0-ubuntu18.04
 
 LABEL maintainer="A. A. Borochkin"
 
@@ -21,9 +21,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libhunspell-dev \
     ## system dependency of hadley/pkgdown
     libmagick++-dev \
+    ## system dependency for igraph
+    glpk-utils \
+    curl \
     vim \
     tree \
   && apt-get clean    
+
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+RUN python3 get-pip.py
+RUN pip install numpy pandas tabulate
 
 # System utilities
 RUN install2.r --error \
@@ -33,17 +40,13 @@ RUN install2.r --error \
   logging \
   # JUnit tests
   testthat \
+  # Provides two convenience functions assert() and test_pkg() to facilitate testing R packages
+  testit \
   # R functions implementing a standard Unit Testing framework, with additional code inspection and report generation tools
   RUnit \   
   # Low-Level R to Java Interface
   rJava \  
   && rm -rf /tmp/downloaded_packages/
-
-# A Utility to Send Emails from R, Java dependent
-# https://medium.com/@randerson112358/send-email-using-r-program-1b094208cf2f
-# to fix error Sending the email to the following server failed : smtp.gmail.com:465
-# accounts with 2-Step Verification enabled. Such accounts require an application-specific password for less secure apps acces
-RUN R -e "devtools::install_github('rpremraj/mailR')"
 
 # Different file formats support
 RUN install2.r --error \ 
@@ -61,6 +64,8 @@ RUN install2.r --error \
 
 #Additional ggplot packages
 RUN install2.r --error \
+    # Network Analysis and Visualization
+    igraph \
     # Provides text and label geoms for 'ggplot2' that help to avoid overlapping text labels. Labels repel away from
     # each other and away from the data points
     ggrepel \
