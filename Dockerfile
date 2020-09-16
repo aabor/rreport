@@ -122,12 +122,32 @@ RUN install2.r --error \
     zoo \
     && rm -rf /tmp/downloaded_packages/
 
+# install poppler, some dependencies of other R packages
+RUN apt-get update && apt-get install -y \
+    ## poppler to install pdftools to work with .pdf files
+    libpoppler-cpp-dev \
+    ## system dependency of hunspell (devtools)
+    libhunspell-dev \
+    ## system dependency of hadley/pkgdown
+    libmagick++-dev \
+    ## (GSL math library dependencies)
+    # for topicmodels on which depends textmineR
+    gsl-bin \
+    libgsl0-dev \
+    librdf0-dev \
+    && apt-get clean
+
 # .pdf optimization, C++ dependent
 RUN install2.r --error \ 
     # Content-preserving transformations transformations of PDF files such as
     # split, combine, and compress. This package interfaces directly to the
     # 'qpdf' C++ API and does not require any command line utilities. 
     qpdf \
+    # Utilities based on 'libpoppler' for extracting text, fonts, attachments
+    # and metadata from a PDF file. Also supports high quality rendering of PDF
+    # documents into PNG, JPEG, TIFF format, or into raw bitmap vectors for
+    # further processing in R
+    pdftools \
     && rm -rf /tmp/downloaded_packages/
 
     
