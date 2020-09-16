@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   rreport: 
-    image: aabor/rstudio-text:1.3-185-g8a03efb
+    image: aabor/rstudio-text:2.0-1-g82bcd0c
     build: .
     volumes:
       - /home/$USER/Documents:/home/rstudio/Documents
@@ -15,10 +15,9 @@ services:
     ports:
       - "8787:8787"
     environment:
-      - TZ="Etc/GMT"
       - USER=rstudio
       - PASSWORD=123
-    restart: "on-failure:30"
+    restart: "always"
     # networks: 
     #   - selenium-hub
     #   - front-end
