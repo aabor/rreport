@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   rreport: 
-    image: aabor/rstudio-text:2.0-1-g82bcd0c
+    image: aabor/rstudio-text:2.0-4-g9f1b16b
     build: .
     volumes:
       - /home/$USER/Documents:/home/rstudio/Documents

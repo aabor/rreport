@@ -7,22 +7,10 @@ LABEL maintainer="A. A. Borochkin"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ## for some package installs
     cmake \
-    ## for rJava
-    default-jdk \
     ## Nice Google fonts
     fonts-roboto \
     ## used by some base R plots
     ghostscript \
-    ## used to build rJava and other packages
-    libbz2-dev \
-    libicu-dev \
-    liblzma-dev \
-    ## system dependency of hunspell (devtools)
-    libhunspell-dev \
-    ## system dependency of hadley/pkgdown
-    libmagick++-dev \
-    ## system dependency for igraph
-    glpk-utils \
     curl \
     vim \
     tree \
@@ -32,6 +20,39 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN python3 get-pip.py
 RUN pip install numpy pandas tabulate
 
+# System dependencies
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ## for rJava
+    default-jdk \
+    ## used to build rJava and other packages
+    libbz2-dev \
+    libicu-dev \
+    liblzma-dev \
+    ## system dependency of hunspell (devtools)
+    libhunspell-dev \
+    ## system dependency of hadley/pkgdown
+    libmagick++-dev \
+    ## poppler to install pdftools to work with .pdf files
+    libpoppler-cpp-dev \
+    ## (GSL math library dependencies)
+    # for topicmodels on which depends textmineR
+    gsl-bin \
+    libgsl0-dev \
+    ## rdf, for redland / linked data
+    librdf0-dev \
+    ## for V8-based javascript wrappers
+    libv8-dev \
+    ## system dependency for igraph
+    glpk-utils \
+    # Dependencies for gmp
+    libgmp-dev \
+    # Dependencies for Rmpfr
+    libmpfr-dev \
+    # Dependencies for qpdf
+    qpdf \
+    && apt-get clean
+   
 # System utilities
 RUN install2.r --error \
   doParallel \
@@ -46,6 +67,8 @@ RUN install2.r --error \
   RUnit \   
   # Low-Level R to Java Interface
   rJava \  
+  # seamless integration of R and C++
+  Rcpp \
   && rm -rf /tmp/downloaded_packages/
 
 # Different file formats support
@@ -122,35 +145,18 @@ RUN install2.r --error \
     zoo \
     && rm -rf /tmp/downloaded_packages/
 
-# install poppler, some dependencies of other R packages
-RUN apt-get update && apt-get install -y \
-    ## poppler to install pdftools to work with .pdf files
-    libpoppler-cpp-dev \
-    ## system dependency of hunspell (devtools)
-    libhunspell-dev \
-    ## system dependency of hadley/pkgdown
-    libmagick++-dev \
-    ## (GSL math library dependencies)
-    # for topicmodels on which depends textmineR
-    gsl-bin \
-    libgsl0-dev \
-    librdf0-dev \
-    && apt-get clean
+## Install R packages for C++
+RUN install2.r --error \
+  #Run 'R CMD check' from 'R' programmatically, and capture the results of the individual checks
+  rcmdcheck \
+  bindr \
+  inline \
+  rbenchmark \
+  RcppArmadillo \
+  RUnit \
+  highlight \
+  && rm -rf /tmp/downloaded_packages/
 
-# .pdf optimization, C++ dependent
-RUN install2.r --error \ 
-    # Content-preserving transformations transformations of PDF files such as
-    # split, combine, and compress. This package interfaces directly to the
-    # 'qpdf' C++ API and does not require any command line utilities. 
-    qpdf \
-    # Utilities based on 'libpoppler' for extracting text, fonts, attachments
-    # and metadata from a PDF file. Also supports high quality rendering of PDF
-    # documents into PNG, JPEG, TIFF format, or into raw bitmap vectors for
-    # further processing in R
-    pdftools \
-    && rm -rf /tmp/downloaded_packages/
-
-    
 USER root
 
 RUN mkdir /home/rstudio/rreports
