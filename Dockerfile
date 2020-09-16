@@ -122,6 +122,14 @@ RUN install2.r --error \
     zoo \
     && rm -rf /tmp/downloaded_packages/
 
+# .pdf optimization, C++ dependent
+RUN install2.r --error \ 
+    # Content-preserving transformations transformations of PDF files such as
+    # split, combine, and compress. This package interfaces directly to the
+    # 'qpdf' C++ API and does not require any command line utilities. 
+    qpdf \
+    && rm -rf /tmp/downloaded_packages/
+
     
 USER root
 
