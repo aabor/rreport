@@ -51,6 +51,7 @@ RUN apt-get update \
     libmpfr-dev \
     # Dependencies for qpdf
     qpdf \
+    ghostscript \
     && apt-get clean
    
 # System utilities
