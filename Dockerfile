@@ -160,8 +160,8 @@ RUN install2.r --error \
 
 USER root
 
-RUN mkdir /home/rstudio/rreports
-WORKDIR /home/rstudio/rreports
+RUN mkdir /home/rstudio/rreport
+WORKDIR /home/rstudio/rreport
 
 COPY . .
 
