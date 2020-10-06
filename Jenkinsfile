@@ -20,7 +20,7 @@ pipeline {
                     mkdir test-reports
                     docker-compose -f docker-compose.test.yml up                    
                     ls test-reports
-                    sh 'ln -s test-reports/rreport.xml $WORKSPACE'
+                    sh 'sudo ln -s test-reports/rreport.xml $WORKSPACE'
                 '''              
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
