@@ -3,7 +3,7 @@ services:
   rreport-test:
     image: aabor/rreport:3.0-80-g7fa7cd7
     container_name: rreport-test
-    user: $UID:$GID
+    user: $USER_ID:$GROUP_ID
     working_dir: $HOME
     stdin_open: true
     volumes:
