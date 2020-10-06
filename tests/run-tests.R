@@ -8,4 +8,5 @@ dir.exists("tests/testthat/test-reports/") #TRUE
 #Sys.umask("113")
 #Sys.umask("000")
 testthat::test_dir('tests/testthat', reporter = "junit")
+file.exists(output_file) # TRUE
 
