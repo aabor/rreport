@@ -14,7 +14,7 @@ pipeline {
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     #echo 'skiping tests'
-                    export UID=$(id -u)
+                    #export UID=$(id -u)
                     export GID=$(id -g)
                     docker-compose -f docker-compose.test.yml up
                 '''                
