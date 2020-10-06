@@ -19,8 +19,8 @@ pipeline {
                     export GROUP_ID=$(id -g)
                     mkdir -p test-reports
                     docker-compose -f docker-compose.test.yml up                    
-                    ls test-reports
-                    sh 'ln -s /var/jenkins_home/workspace/rreport/test-reports/rreport.xml $WORKSPACE'
+                    ls $WORKSPACE/test-reports
+                    sh 'ln -s test-reports/rreport.xml $WORKSPACE'
                 '''              
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
