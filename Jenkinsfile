@@ -13,8 +13,10 @@ pipeline {
                     docker build -t $USER/rreport .
                 '''
                 labelledShell label: 'Unit tests...', script: '''
-                    echo 'skiping tests'
-                    #docker-compose -f docker-compose.test.yml up
+                    #echo 'skiping tests'
+                    export UID=$(id -u)
+                    export GID=$(id -g)
+                    docker-compose -f docker-compose.test.yml up
                 '''                
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
