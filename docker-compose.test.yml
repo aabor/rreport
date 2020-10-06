@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   rreport-test:
-    image: aabor/rreport:3.0-80-g7fa7cd7
+    image: aabor/rreport:latest
     container_name: rreport-test
     user: $USER_ID:$GROUP_ID
     working_dir: $HOME
