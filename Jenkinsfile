@@ -19,8 +19,6 @@ pipeline {
                     export GROUP_ID=$(id -g)
                     mkdir -p test-reports
                     docker-compose -f docker-compose.test.yml up                    
-                    ls $WORKSPACE/test-reports
-                    sh 'ln -s test-reports/rreport.xml $WORKSPACE'
                 '''              
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
@@ -36,7 +34,7 @@ pipeline {
             }
             post {
                 always{
-                    junit 'rreport.xml'                    
+                    //junit 'rreport.xml'                    
                     cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
