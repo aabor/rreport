@@ -17,7 +17,7 @@ pipeline {
                     echo $WORKSPACE
                     export USER_ID=$(id -u)
                     export GROUP_ID=$(id -g)
-                    mkdir test-reports
+                    mkdir -p test-reports
                     docker-compose -f docker-compose.test.yml up                    
                     ls test-reports
                     sh 'sudo ln -s test-reports/rreport.xml $WORKSPACE'
