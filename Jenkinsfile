@@ -19,8 +19,8 @@ pipeline {
                     export USER_ID=$(id -u)
                     export GROUP_ID=$(id -g)
                     docker-compose -f docker-compose.test.yml up
-                    ls tests
-                    sh 'ln -s "${PWD}/tests/testthat/test-reports/rreport.xml" $WORKSPACE'
+                    ls tests/testthat/test-reports
+                    sh 'ln -s tests/testthat/test-reports/rreport.xml $WORKSPACE'
                 '''              
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
