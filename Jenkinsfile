@@ -14,10 +14,11 @@ pipeline {
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     #echo 'skiping tests'
+                    echo ${PWD}
                     export USER_ID=$(id -u)
                     export GROUP_ID=$(id -g)
                     docker-compose -f docker-compose.test.yml up
-                '''                
+                '''              
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
                     echo $GIT_VERSION
