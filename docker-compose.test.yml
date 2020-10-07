@@ -10,4 +10,4 @@ services:
       # - /etc/passwd:/etc/passwd:ro
       # - /etc/shadow:/etc/shadow:ro
       - "${PWD}/test-reports:/home/rstudio/rreport/tests/testthat/test-reports"
-    command: bash -c "pwd && Rscript --verbose /home/rstudio/rreport/tests/run-tests.R"
+    #command: bash -c "pwd && Rscript --verbose /home/rstudio/rreport/tests/run-tests.R"

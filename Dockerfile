@@ -165,4 +165,6 @@ WORKDIR /home/rstudio/rreport
 
 COPY . .
 
+ENTRYPOINT [“sleep”, “infinity”]
+
 
