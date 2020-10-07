@@ -3,7 +3,7 @@ services:
   rreport-test:
     image: aabor/rreport:latest
     container_name: rreport-test
-    user: $USER_ID:$GROUP_ID
+    #user: $USER_ID:$GROUP_ID
     stdin_open: true
     volumes:
       # - /etc/group:/etc/group:ro
