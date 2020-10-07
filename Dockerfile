@@ -158,8 +158,8 @@ RUN install2.r --error \
   highlight \
   && rm -rf /tmp/downloaded_packages/
 
-USER root
-
+USER rstudio
+RUN echo $(id -u)
 RUN mkdir /home/rstudio/rreport
 WORKDIR /home/rstudio/rreport
 
