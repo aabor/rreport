@@ -165,6 +165,8 @@ WORKDIR /home/rstudio/rreport
 
 COPY . .
 
+USER root
 RUN chown -R rstudio:rstudio /home/rstudio/rreport
+USER rstudio
 
 
