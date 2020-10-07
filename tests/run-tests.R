@@ -3,7 +3,7 @@ wd<-getwd() #working directory difers when running from RStudio or from Rscript
 print(wd)
 output_file<-file.path(wd, "tests/testthat/test-reports/rreport.xml")
 file.exists(output_file) # TRUE
-Sys.sleep(Inf)
+#Sys.sleep(Inf)
 options(testthat.output_file = output_file)
 dir.exists("tests/testthat/test-reports/") #TRUE
 #Sys.umask("113")
