@@ -163,8 +163,8 @@ RUN echo $(id -u)
 RUN mkdir /home/rstudio/rreport
 WORKDIR /home/rstudio/rreport
 
-USER rstudio
-
 COPY . .
+
+RUN chown -R rstudio:rstudio /home/rstudio/rreport
 
 
