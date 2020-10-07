@@ -17,6 +17,7 @@ pipeline {
                     echo $WORKSPACE
                     export USER_ID=$(id -u)
                     export GROUP_ID=$(id -g)
+                    chmod -R 755 ../rreport
                     docker-compose -f docker-compose.test.yml up                    
                 '''              
                 labelledShell label: 'Pushing images to docker registry...', script: '''
