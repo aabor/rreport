@@ -14,11 +14,7 @@ pipeline {
                 '''
                 labelledShell label: 'Unit tests...', script: '''
                     #echo 'skiping tests'
-                    echo $WORKSPACE
-                    export USER_ID=$(id -u)
-                    export GROUP_ID=$(id -g)
-                    chmod -R 755 ../rreport
-                    docker-compose -f docker-compose.test.yml up                    
+                    #docker-compose -f docker-compose.test.yml up                    
                 '''              
                 labelledShell label: 'Pushing images to docker registry...', script: '''
                     export GIT_VERSION=$(git describe --tags | sed s/v//)
@@ -35,7 +31,7 @@ pipeline {
             post {
                 always{
                     //junit 'rreport.xml'                    
-                    //cleanWs()
+                    cleanWs()
                     emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
                         [$class: 'RequesterRecipientProvider']],

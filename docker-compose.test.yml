@@ -4,7 +4,7 @@ services:
     image: aabor/rreport:latest
     container_name: rreport-test
     #user: $USER_ID:$GROUP_ID
-    stdin_open: true
+    #stdin_open: true
     volumes:
       # - /etc/group:/etc/group:ro
       # - /etc/passwd:/etc/passwd:ro

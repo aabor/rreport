@@ -16,9 +16,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tree \
   && apt-get clean    
 
+# install python pip
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN python3 get-pip.py
+RUN pip install --upgrade pip
+# install python data science packages
 RUN pip install numpy pandas tabulate
+# install python packages necessary for gRPC communication
+RUN pip install grpcio grpcio-tools mysql-connector-python consulate
 
 # System dependencies
 RUN apt-get update \
@@ -164,9 +169,5 @@ RUN mkdir /home/rstudio/rreport
 WORKDIR /home/rstudio/rreport
 
 COPY . .
-
-USER root
-RUN chown -R rstudio:rstudio /home/rstudio/rreport
-USER rstudio
 
 
