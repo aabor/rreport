@@ -164,10 +164,8 @@ RUN install2.r --error \
   && rm -rf /tmp/downloaded_packages/
 
 USER rstudio
-RUN echo $(id -u)
-RUN mkdir /home/rstudio/rreport
-WORKDIR /home/rstudio/rreport
 
-COPY . .
+# gRPC External Tool
+EXPOSE 50404
 
 
