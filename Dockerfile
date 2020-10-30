@@ -166,6 +166,6 @@ RUN install2.r --error \
 USER rstudio
 
 # gRPC External Tool
-EXPOSE 50404
+EXPOSE 50420
 
 
